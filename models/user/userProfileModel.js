@@ -4,7 +4,7 @@ const { poolPromise, sql } = require('../../config/db');
 async function getApproverUsers() {
   const pool = await poolPromise;
   const result = await pool.request().query(`
-    -- include department details (if any) so frontend can associate approvers with a department
+    -- include department details (if any) sokkkkkkk frontend can associate approvers with a department
     SELECT 
       u.user_id,
       u.full_name,
