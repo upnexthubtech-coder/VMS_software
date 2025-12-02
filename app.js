@@ -24,8 +24,10 @@ app.get('/', (req, res) => res.json({ ok: true, env: process.env.NODE_ENV || 'de
 const PORT = process.env.PORT || 3000;
 // create HTTP server and attach Socket.IO for real-time notifications
 const httpServer = require('http').createServer(app);
+// Normalize FRONTEND_URL for socket.io CORS (strip trailing slash)
+const frontendOrigin = (process.env.FRONTEND_URL || '*').toString().replace(/\/$/, '');
 const io = require('socket.io')(httpServer, {
-	cors: { origin: process.env.FRONTEND_URL || '*', methods: ['GET', 'POST', 'PUT', 'PATCH'] },
+	cors: { origin: frontendOrigin || '*', methods: ['GET', 'POST', 'PUT', 'PATCH'] },
 });
 
 // expose io on app so controllers can emit: req.app.get('io')

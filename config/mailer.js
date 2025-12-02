@@ -1,41 +1,65 @@
-const nodemailer = require('nodemailer');
-require('dotenv').config();
+const nodemailer = require("nodemailer");
 
-let transporter;
+// Log SMTP Config on Server Start
+console.log("=== SMTP CONFIG CHECK ===");
+console.log("SMTP_HOST:", process.env.SMTP_HOST);
+console.log("SMTP_PORT:", process.env.SMTP_PORT);
+console.log("SMTP_SECURE:", process.env.SMTP_SECURE);
+console.log("SMTP_USER:", process.env.SMTP_USER);
+console.log("MAIL_FROM:", process.env.MAIL_FROM);
+console.log("==========================");
 
-if (process.env.SMTP_HOST && process.env.SMTP_USER) {
-  transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT) || 465,
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    },
-    tls: {
-      rejectUnauthorized: process.env.SMTP_REJECT_UNAUTHORIZED !== 'false'
-    }
-  });
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || "smtp.gmail.com",
+  port: Number(process.env.SMTP_PORT) || 587,
+  secure: false, // Gmail requires STARTTLS on port 587
 
-  console.log('Mailer: using SMTP transport');
-} else {
-  console.warn('Mailer: No SMTP credentials, using jsonTransport');
-  transporter = nodemailer.createTransport({ jsonTransport: true });
-}
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
 
-transporter.verify((error) => {
-  if (error) console.error('SMTP Verification Failed:', error);
-  else console.log('Mail transporter ready');
+  tls: {
+    minVersion: "TLSv1",
+    rejectUnauthorized: false
+  }
 });
 
-async function sendMail(to, subject, htmlContent, attachments = []) {
-  return transporter.sendMail({
-    from: process.env.MAIL_FROM || process.env.SMTP_USER,
-    to,
-    subject,
-    html: htmlContent,
-    attachments
-  });
+// Check SMTP Connection on Server Start
+transporter.verify((error, success) => {
+  if (error) {
+    console.log("❌ SMTP Connection Failed:");
+    console.error(error);
+  } else {
+    console.log("✔ SMTP Server is Ready to Send Emails");
+  }
+});
+
+// Send Email Function
+async function sendEmail(to, subject, html) {
+  console.log("\n=== Sending Email ===");
+  console.log("To:", to);
+  console.log("Subject:", subject);
+
+  try {
+    const info = await transporter.sendMail({
+      from: process.env.MAIL_FROM || process.env.SMTP_USER,
+      to,
+      subject,
+      html,
+    });
+
+    console.log("✔ Email Sent Successfully!");
+    console.log("Message ID:", info.messageId);
+
+    return { success: true, messageId: info.messageId };
+
+  } catch (error) {
+    console.log("❌ SMTP Error While Sending Email:");
+    console.error(error);
+
+    return { success: false, error };
+  }
 }
 
-module.exports = sendMail;
+module.exports = { sendEmail };
