@@ -1,4 +1,15 @@
 const nodemailer = require("nodemailer");
+let sendgrid = null;
+if (process.env.SENDGRID_API_KEY) {
+  try {
+    sendgrid = require('@sendgrid/mail');
+    sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+    console.log('Using SendGrid transport (SENDGRID_API_KEY present)');
+  } catch (e) {
+    console.warn('SendGrid SDK not installed or failed to load:', e.message || e);
+    sendgrid = null;
+  }
+}
 
 // Log SMTP Config on Server Start
 console.log("=== SMTP CONFIG CHECK ===");
@@ -67,6 +78,19 @@ async function sendEmail(to, subject, html) {
   console.log("Subject:", subject);
 
   try {
+    // If SendGrid is configured, prefer its HTTP API (more reliable on PaaS)
+    if (sendgrid) {
+      const msg = {
+        to,
+        from: process.env.MAIL_FROM || process.env.SMTP_USER,
+        subject,
+        html,
+      };
+      const res = await sendgrid.send(msg);
+      console.log('✔ Email Sent via SendGrid');
+      return { success: true, info: res };
+    }
+
     const info = await transporter.sendMail({
       from: process.env.MAIL_FROM || process.env.SMTP_USER,
       to,
@@ -80,7 +104,7 @@ async function sendEmail(to, subject, html) {
     return { success: true, messageId: info.messageId };
 
   } catch (error) {
-    console.log("❌ SMTP Error While Sending Email:");
+    console.log("❌ SMTP/SendGrid Error While Sending Email:");
     console.error(error);
 
     return { success: false, error };

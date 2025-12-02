@@ -29,11 +29,21 @@ app.get('/', (req, res) => res.json({ ok: true, env: process.env.NODE_ENV || 'de
 const PORT = process.env.PORT || 3000;
 // create HTTP server and attach Socket.IO for real-time notifications
 const httpServer = require('http').createServer(app);
-// Normalize FRONTEND_URL for socket.io CORS (strip trailing slash)
-const frontendOrigin = (process.env.FRONTEND_URL || '*').toString().replace(/\/$/, '');
-const io = require('socket.io')(httpServer, {
-	cors: { origin: frontendOrigin || '*', methods: ['GET', 'POST', 'PUT', 'PATCH'] },
-});
+// Prepare socket.io CORS origins. Accept comma-separated FRONTEND_URLs.
+const rawFrontends = (process.env.FRONTEND_URL || '').toString();
+const frontendList = rawFrontends.split(',').map(s => s.trim()).filter(Boolean).map(s => s.replace(/\/$/, ''));
+let socketCors = { methods: ['GET', 'POST', 'PUT', 'PATCH'] };
+if (String(process.env.ALLOW_ALL_ORIGINS || 'false').toLowerCase() === 'true') {
+	socketCors.origin = '*';
+} else if (frontendList.length === 1) {
+	socketCors.origin = frontendList[0];
+} else if (frontendList.length > 1) {
+	socketCors.origin = frontendList;
+} else {
+	socketCors.origin = '*';
+}
+
+const io = require('socket.io')(httpServer, { cors: socketCors });
 
 // expose io on app so controllers can emit: req.app.get('io')
 app.set('io', io);
