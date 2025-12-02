@@ -29,8 +29,8 @@ async function getEmployee(req, res) {
 }
 
 const { hashPassword } = require('../../utils/login/hashPassword');
-const loginUserModel = require('d:/sne_applicatoin2/visitor_mangmant_system/api/models/login/userModel.js');
-const userProfileModel = require('d:/sne_applicatoin2/visitor_mangmant_system/api/models/user/userProfileModel.js');
+const loginUserModel = require('../../models/login/userModel.js');
+const userProfileModel = require('../../models/user/userProfileModel.js');
 const { poolPromise, sql } = require('../../config/db');
 const { mapDesignationToRole, ALLOWED_ROLES } = require('../../config/roles.js');
 
