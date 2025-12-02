@@ -1,0 +1,70 @@
+# Ignore compiled files
+*.class
+*.jar
+*.war
+*.apk
+*.exe
+*.dll
+*.so
+
+# Ignore logs
+*.log
+*.txt
+
+# Ignore IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore build artifacts
+/build/
+/dist/
+/target/
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore npm/yarn packages
+node_modules/
+yarn.lock
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore environment-specific files
+.env
+.env.local
+.env.*.local
+.env.*.local.com
+.env.*.local.com
+.env.*.local.com.*
+.env.*.local.com.*.com
+.env.*.local.com.*.com.*
+.env.*.local.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*
+.env.*.local.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.com.*.
