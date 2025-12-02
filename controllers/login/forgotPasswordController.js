@@ -28,8 +28,29 @@ async function requestOTP(req, res) {
     await userModel.insertPasswordResetOtp(user.user_id, otp, expiresAt);
 
     const htmlContent = `
-      <p>Your OTP for password reset is: <b>${otp}</b>.</p>
-      <p>It expires in 10 minutes.</p>
+      <div style="font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:#f3f4f6; padding:28px;">
+        <div style="max-width:640px;margin:0 auto;background:#fff;border-radius:12px;padding:22px;border:1px solid #e6e6e6;">
+          <div style="text-align:center;padding-bottom:8px;border-bottom:1px solid #f0f0f0;">
+            <h2 style="margin:0;color:#0f172a;font-size:20px;">Your Visitor Management System — OTP</h2>
+            <p style="margin:6px 0 0;color:#6b7280;font-size:13px">Use the code below to reset your password</p>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:center;padding:18px 0;">
+            <div style="background:linear-gradient(90deg,#4f46e5,#7c3aed);padding:18px 26px;border-radius:12px;color:white;font-weight:800;font-size:26px;letter-spacing:2px;">
+              ${otp}
+            </div>
+          </div>
+
+          <div style="text-align:center;color:#374151;font-size:13px;line-height:1.4;padding-bottom:8px;">
+            <p style="margin:0 0 8px 0">This code is valid for <strong>10 minutes</strong>. Keep it secret — do not share it with anyone.</p>
+            <p style="margin:0;color:#9aa1ae;font-size:12px">If you didn't request a password reset, please ignore this email or contact your administrator.</p>
+          </div>
+
+          <div style="margin-top:12px;border-top:1px dashed #e6e6e6;padding-top:12px;font-size:12px;color:#9aa1ae;text-align:center;">
+            <div>Thank you — Visitor Management System</div>
+          </div>
+        </div>
+      </div>
     `;
 
     await sendMail(email, 'Password Reset OTP', htmlContent);
