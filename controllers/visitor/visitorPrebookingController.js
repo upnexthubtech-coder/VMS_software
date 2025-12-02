@@ -5,7 +5,7 @@ const userModel = require('../../models/login/userModel');
 const userProfileModel = require('../../models/user/userProfileModel');
 const visitorInviteModel = require('../../models/visitor/visitorInviteModel');
 const notificationModel = require('../../models/visitor/visitorNotificationModel');
-const { poolPromise, sql } = require('d:/sne_applicatoin2/visitor_mangmant_system/API/config/db.js');
+const { poolPromise, sql } = require('../../config/db.js');
 
 async function createPrebooking(req, res) {
   try {
