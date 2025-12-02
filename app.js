@@ -8,6 +8,11 @@ const path = require('path');
 
 const app = express();
 
+// Trust proxy headers (X-Forwarded-Proto, X-Forwarded-Host) when running behind
+// a reverse proxy (Render, Vercel, etc). This makes `req.protocol` and
+// `req.get('host')` reflect the public origin.
+app.set('trust proxy', true);
+
 app.use(cors(corsOptions));
 app.use(express.json());
 // support signed cookies / httpOnly cookies

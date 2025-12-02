@@ -4,10 +4,10 @@ async function uploadFile(req, res) {
   try {
     if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
 
-    // build public URL for the uploaded file
-    // stored at /uploads/<filename>
-    const host = process.env.APP_API_ORIGIN || `https://vms-software.onrender.com:${process.env.PORT || 3000}`;
-    const fileUrl = `${host}/uploads/${req.file.filename}`;
+    // build public URL for the uploaded file (prefer explicit env override)
+    // Use request host/protocol as fallback so deployed environments behind proxies work
+    const host = process.env.APP_API_ORIGIN || `${req.protocol}://${req.get('host')}`;
+    const fileUrl = `${host.replace(/\/$/, '')}/uploads/${req.file.filename}`;
 
     return res.json({ url: fileUrl });
   } catch (err) {

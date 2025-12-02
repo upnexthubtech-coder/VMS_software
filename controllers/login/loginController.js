@@ -76,10 +76,13 @@ async function login(req, res) {
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES });
 
     // cookie options - secure only when running in production over HTTPS
+    // For cross-site frontend (e.g., Vercel) calling backend (e.g., Render),
+    // cookies must be SameSite=None and Secure to be sent with credentials.
+    const isProd = process.env.NODE_ENV === 'production';
     const cookieOptions = {
       httpOnly: true,
-      sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none',
+      secure: isProd, // Render/Vercel use HTTPS in production
       maxAge: 24 * 60 * 60 * 1000, // default 1 day
     };
 

@@ -28,8 +28,13 @@ async function createGatepass({
   // Final gatepass code format: GP-1, GP-2, GP-3...
   const code = `GP-${nextNumber}`;
 
-  // Base URL for any links if needed
-  const baseOrigin = process.env.APP_API_ORIGIN || `https://vms-software.onrender.com:${process.env.PORT || 3000}`;
+  // Base URL for any links if needed. Prefer explicit env override. In production
+  // the deploy should set APP_API_ORIGIN to the public API origin (https://api.example.com).
+  // Fall back to a reasonable local default in development.
+  const baseOrigin = (process.env.APP_API_ORIGIN && process.env.APP_API_ORIGIN.replace(/\/$/, ''))
+    || (process.env.NODE_ENV === 'production'
+      ? `https://${process.env.HOSTNAME || 'vms-software.onrender.com'}`
+      : `http://localhost:${process.env.PORT || 3000}`);
 
   // ensure uploads folder
   const dir = path.join(__dirname, '..', '..', 'uploads', 'gatepasses');
@@ -144,7 +149,7 @@ async function createGatepass({
     console.warn('PDF Error:', pdfErr);
   }
 
-  const pdfFileUrl = `/uploads/gatepasses/${pdfFilename}`;
+  const pdfFileUrl = `${baseOrigin}/uploads/gatepasses/${pdfFilename}`;
 
   // ----------------------------------------------
   // 3️⃣ SAVE GATEPASS RECORD IN DATABASE

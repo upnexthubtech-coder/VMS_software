@@ -15,8 +15,8 @@ const transporter = nodemailer.createTransport({
   secure: false, // Gmail requires STARTTLS on port 587
 
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    user: process.env.SMTP_USER  ||"vms.software.upnexthub@gmail.com" ,
+    pass: process.env.SMTP_PASS || "sydd sfbs hrms bywn",
   },
 
   tls: {
