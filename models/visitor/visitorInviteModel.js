@@ -1,4 +1,4 @@
-const { poolPromise } = require('d:/sne_applicatoin2/visitor_mangmant_system/API/config/db');
+const { poolPromise } = require('../../config/db');
 const sql = require('mssql');
 
 async function createInvite({ visitor_email, invite_message, invited_for_date, created_by }) {

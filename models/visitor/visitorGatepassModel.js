@@ -29,7 +29,7 @@ async function createGatepass({
   const code = `GP-${nextNumber}`;
 
   // Base URL for any links if needed
-  const baseOrigin = process.env.APP_API_ORIGIN || `http://localhost:${process.env.PORT || 3000}`;
+  const baseOrigin = process.env.APP_API_ORIGIN || `https://vms-software.onrender.com:${process.env.PORT || 3000}`;
 
   // ensure uploads folder
   const dir = path.join(__dirname, '..', '..', 'uploads', 'gatepasses');

@@ -1,7 +1,7 @@
 const { poolPromise } = require('../../config/db');
 const sql = require('mssql');
-const { createNotification } = require('d:/sne_applicatoin2/visitor_mangmant_system/api/models/visitor/visitorNotificationModel.js');
-const { getPrebookingById } = require('d:/sne_applicatoin2/visitor_mangmant_system/api/models/visitor/visitorPrebookingModel.js');
+const { createNotification } = require('../../models/visitor/visitorNotificationModel');
+const { getPrebookingById } = require('../../models/visitor/visitorPrebookingModel');
 
 async function createInoutRecord(req, res) {
   try {

@@ -1,4 +1,4 @@
-const { poolPromise, sql } = require('d:/sne_applicatoin2/visitor_mangmant_system/API/config/db.js');
+const { poolPromise, sql } = require('../../config/db');
 
 
 

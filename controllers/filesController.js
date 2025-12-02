@@ -6,7 +6,7 @@ async function uploadFile(req, res) {
 
     // build public URL for the uploaded file
     // stored at /uploads/<filename>
-    const host = process.env.APP_API_ORIGIN || `http://localhost:${process.env.PORT || 3000}`;
+    const host = process.env.APP_API_ORIGIN || `https://vms-software.onrender.com:${process.env.PORT || 3000}`;
     const fileUrl = `${host}/uploads/${req.file.filename}`;
 
     return res.json({ url: fileUrl });

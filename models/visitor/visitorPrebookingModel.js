@@ -1,6 +1,6 @@
 // models/visitor/visitorPrebookingModel.js
 // models/visitor/visitorPrebookingModel.js
-const { poolPromise } = require('d:/sne_applicatoin2/visitor_mangmant_system/API/config/db.js');
+const { poolPromise } = require('../../config/db.js');
 const sql = require('mssql');
 
 async function createPrebooking(prebookingData, belongings = []) {

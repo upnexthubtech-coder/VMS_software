@@ -1,4 +1,4 @@
-const employeeModel = require('d:/sne_applicatoin2/visitor_mangmant_system/api/models/employee/employeeModel.js');
+const employeeModel = require('../../models/employee/employeeModel.js');
 
 async function getAllEmployees(req, res) {
   try {
@@ -32,7 +32,7 @@ const { hashPassword } = require('../../utils/login/hashPassword');
 const loginUserModel = require('d:/sne_applicatoin2/visitor_mangmant_system/api/models/login/userModel.js');
 const userProfileModel = require('d:/sne_applicatoin2/visitor_mangmant_system/api/models/user/userProfileModel.js');
 const { poolPromise, sql } = require('../../config/db');
-const { mapDesignationToRole, ALLOWED_ROLES } = require('../../config/roles');
+const { mapDesignationToRole, ALLOWED_ROLES } = require('../../config/roles.js');
 
 async function createEmployee(req, res) {
   try {

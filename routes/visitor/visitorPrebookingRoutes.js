@@ -1,7 +1,7 @@
 // routes/visitor/visitorPrebookingRoutes.js
 const express = require('express');
 const router = express.Router();
-const prebookingController = require('d:/sne_applicatoin2/visitor_mangmant_system/api/controllers/visitor/visitorPrebookingController.js');
+const prebookingController = require('../../controllers/visitor/visitorPrebookingController');
 const { requireAuth, authorizePrebookingHostOrAdmin } = require('../../middleware/authMiddleware');
 
 // POST /api/visitor/prebooking    (visitor submits form)
