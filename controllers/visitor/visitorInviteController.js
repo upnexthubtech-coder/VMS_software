@@ -1,7 +1,7 @@
 const visitorInviteModel = require('../../models/visitor/visitorInviteModel');
 const { sendInviteEmail } = require('../../services/mailerService');
 
-const APP_BASE_URL = process.env.APP_BASE_URL || 'http://localhost:5173';
+const APP_BASE_URL = process.env.APP_BASE_URL || 'https://visitor-nu.vercel.app/';
 
 async function createVisitorInvite(req, res) {
   try {

@@ -1,5 +1,4 @@
-const allowedOrigins = ['http://localhost:5173']; // Your React app origin
-
+const allowedOrigins = ['https://visitor-nu.vercel.app/']; // Your React app origin  
 const corsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin (like Postman or curl)
